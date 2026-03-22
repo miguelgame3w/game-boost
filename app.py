@@ -13,26 +13,30 @@ st.set_page_config(
 )
 
 # ==============================================================================
-# 2. CSS AVANÇADO - CLONANDO O VISUAL DO PRINT
+# 2. CSS AVANÇADO - CORREÇÃO DE CORES E ANIMAÇÕES
 # ==============================================================================
 st.markdown("""
     <style>
-    /* Fundo Escuro Profundo do App */
-    .main { background-color: #0b0d13; color: #e1e3e8; font-family: 'Segoe UI', system-ui, sans-serif; }
+    /* Fundo Escuro Profundo e Texto Claro (Fica legível) */
+    .main { 
+        background-color: #0b0d13; 
+        color: #e1e3e8 !important; /* Texto claro padrão */
+        font-family: 'Segoe UI', system-ui, sans-serif; 
+    }
     #MainMenu, footer, header {visibility: hidden;}
 
     /* Título (Discreto, igual print) */
     .app-title { color: #888; text-align: center; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; margin-top: -50px; margin-bottom: 30px;}
 
-    /* Contêineres de Entrada (Bater, Armazenamento) */
-    .stTextInput>div, .stNumberInput>div, .stSelectbox>div[data-baseweb="select"] {
+    /* Contêineres de Entrada e Texto DENTRO delas */
+    .stTextInput>div>div>input {
         background-color: #11141d;
         border: 1px solid #1e2230;
         border-radius: 12px;
-        color: white;
+        color: white !important; /* TEXTO BRANCO NA CAIXA */
+        font-size: 16px;
     }
-    .stTextInput input, .stNumberInput input { color: white !important; font-size: 16px;}
-    label { color: #888 !important; font-size: 12px !important; text-transform: uppercase; font-weight: bold;}
+    label { color: #bbb !important; font-size: 12px !important; text-transform: uppercase; font-weight: bold;}
 
     /* --- SLIDER CUSTOMIZADO (DPI) --- */
     .stSlider > div > div > div > div { background: #ff4b4b; } /* Cor da barra preenchida */
@@ -50,33 +54,42 @@ st.markdown("""
         margin-top: -35px;
     }
 
-    /* --- BOTOÕES DE SELEÇÃO DE S.O. (ANDROID/iOS) --- */
-    div.stButton > button:first-child { # Botão Android (Ativo)
-        background-color: #ff4b4b;
-        color: white;
-        border-radius: 12px;
-        border: none;
-        width: 100%;
-        padding: 15px;
-        font-weight: bold;
-    }
-    div.stButton > button:last-child { # Botão iOS (Inativo)
-        background-color: #1a1e29;
-        color: #555;
+    /* --- BOTOÕES DE SELEÇÃO DE S.O. (ANDROID/iOS) COM ANIMAÇÃO ROXA --- */
+    div.stButton > button { # Estilo básico
         border-radius: 12px;
         border: 1px solid #2a2f3f;
         width: 100%;
         padding: 15px;
+        font-weight: bold;
+        transition: all 0.3s ease; # Animação suave
+    }
+    div.stButton > button:first-child { # Botão Android (Ativo)
+        background-color: #ff4b4b;
+        color: white;
+        border: none;
+    }
+    div.stButton > button:first-child:hover { # Efeito de passar o dedo (Android)
+        background-color: #6a0dad; # ROXO NO HOVER
+        box-shadow: 0 0 10px rgba(106, 13, 173, 0.5);
+    }
+    div.stButton > button:last-child { # Botão iOS (Inativo)
+        background-color: #1a1e29;
+        color: #ccc !important; /* Texto claro no inativo */
+    }
+    div.stButton > button:last-child:hover { # Efeito de passar o dedo (iOS)
+        background-color: #6a0dad; # ROXO NO HOVER
+        color: white !important;
+        box-shadow: 0 0 10px rgba(106, 13, 173, 0.5);
     }
 
-    /* --- CHECKBOXES DE OTIMIZAÇÃO --- */
-    .stCheckbox label span { color: #888 !important; font-size: 14px;}
-    .stCheckbox div[data-testid="stMarkdownContainer"] p { color: #888; }
+    /* --- CHECKBOXES DE OTIMIZAÇÃO E TEXTO LEGÍVEL --- */
+    .stCheckbox label div { color: #eee !important; font-size: 14px; font-weight: 500;} /* TEXTO LEGÍVEL */
+    .stCheckbox div[data-testid="stMarkdownContainer"] p { color: #eee; }
     
     /* A caixinha do Checkbox quando marcada */
     .stCheckbox input[type="checkbox"]:checked + div { background-color: #ff4b4b !important; border-color: #ff4b4b !important;}
 
-    /* Botão Principal Final */
+    /* Botão Principal Final COM ANIMAÇÃO ROXA */
     .main-btn>div>button {
         width: 100%;
         background-color: #ff4b4b;
@@ -88,8 +101,13 @@ st.markdown("""
         border-radius: 15px;
         margin-top: 30px;
         box-shadow: 0 4px 15px rgba(255, 75, 75, 0.3);
+        transition: all 0.4s ease; # Animação suave
     }
-    .main-btn>div>button:hover { background-color: #ff3333; }
+    .main-btn>div>button:hover { 
+        background-color: #6a0dad; # ROXO NO HOVER
+        box-shadow: 0 6px 20px rgba(106, 13, 173, 0.6);
+        transform: scale(1.02); # Dá um 'charm' pulando um pouquinho
+    }
 
     /* Cards de Sensi */
     .sensi-card {
@@ -129,8 +147,7 @@ with col_in2: storage = st.text_input("ARMAZENAMENTO", placeholder="256 GB")
 st.write("###")
 st.write("⚡ DPI PERSONALIZADA")
 # Lógica para mostrar o número dinâmico no estilo do print
-# Precisamos de um placeholder para atualizar o número
-dpi_val = st.slider("", 100, 1000, 821, label_visibility="collapsed")
+dpi_val = st.slider("", 100, 1000, 1000, label_visibility="collapsed")
 st.markdown(f'<div class="dpi-display">{dpi_val}</div>', unsafe_allow_html=True)
 st.write("<div style='display:flex; justify-content:space-between; color:#555; font-size:10px;'><span>MIN</span><span>MÁXIMO</span></div>", unsafe_allow_html=True)
 
@@ -138,8 +155,6 @@ st.write("<div style='display:flex; justify-content:space-between; color:#555; f
 st.write("###")
 st.markdown("#### FUNÇÕES E OTIMIZAÇÃO")
 with st.container():
-    col_check1, col_check2, col_check3 = st.columns([0.1, 0.8, 0.1])
-    # Tivemos que forçar os checkboxes a ficarem vermelhos via CSS acima
     check_fps = st.checkbox("FPS A MILHÃO (120+ FPS)", value=True)
     check_ensino = st.checkbox("MÉTODO ENSINO MÉDIO COMPLETO")
     check_mira = st.checkbox("MIRA NAO PASSAR")
@@ -166,10 +181,10 @@ if run_btn:
         
         # Resultados estilo Card Clean
         c1, c2, c3, c4 = st.columns(4)
-        with c1: st.markdown(f'<div class="sensi-card"><p style="color:#888;">GERAL</p><p style="color:#ff4b4b; font-size:30px; font-weight:bold;">{random.randint(95,100)}</p></div>', unsafe_allow_html=True)
-        with c2: st.markdown(f'<div class="sensi-card"><p style="color:#888;">RED DOT</p><p style="color:#ff4b4b; font-size:30px; font-weight:bold;">{random.randint(94,99)}</p></div>', unsafe_allow_html=True)
-        with c3: st.markdown(f'<div class="sensi-card"><p style="color:#888;">MIRA 2X</p><p style="color:#ff4b4b; font-size:30px; font-weight:bold;">{random.randint(92,98)}</p></div>', unsafe_allow_html=True)
-        with c4: st.markdown(f'<div class="sensi-card"><p style="color:#888;">MIRA 4X</p><p style="color:#ff4b4b; font-size:30px; font-weight:bold;">{random.randint(90,96)}</p></div>', unsafe_allow_html=True)
+        with c1: st.markdown(f'<div class="sensi-card"><p style="color:#aaa;">GERAL</p><p style="color:#ff4b4b; font-size:30px; font-weight:bold;">{random.randint(95,100)}</p></div>', unsafe_allow_html=True)
+        with c2: st.markdown(f'<div class="sensi-card"><p style="color:#aaa;">RED DOT</p><p style="color:#ff4b4b; font-size:30px; font-weight:bold;">{random.randint(94,99)}</p></div>', unsafe_allow_html=True)
+        with c3: st.markdown(f'<div class="sensi-card"><p style="color:#aaa;">MIRA 2X</p><p style="color:#ff4b4b; font-size:30px; font-weight:bold;">{random.randint(92,98)}</p></div>', unsafe_allow_html=True)
+        with c4: st.markdown(f'<div class="sensi-card"><p style="color:#aaa;">MIRA 4X</p><p style="color:#ff4b4b; font-size:30px; font-weight:bold;">{random.randint(90,96)}</p></div>', unsafe_allow_html=True)
 
         st.divider()
         st.link_button("📱 SEGUE NO TIKTOK (@3wmiguel)", "https://www.tiktok.com/@3wmiguel", use_container_width=True)
