@@ -1,104 +1,92 @@
 import streamlit as st
 import time
+import random
 
-# Configuração da aba do navegador
-st.set_page_config(page_title="GAME BOOST IA", page_icon="⚡")
+# Configurações de Design
+st.set_page_config(page_title="GAME BOOST IA - V2", page_icon="🎯", layout="centered")
 
-# Título Principal
-st.title("🚀 GAME BOOST IA")
-st.write("Otimização Total: Sistema + Sensi de Elite")
+# CSS para deixar o site com cara de Aplicativo de Elite
+st.markdown("""
+    <style>
+    .main { background-color: #06090f; }
+    .stButton>button {
+        width: 100%;
+        background: linear-gradient(90deg, #ff0000, #ff4b4b);
+        color: white;
+        border: none;
+        padding: 15px;
+        font-size: 20px;
+        font-weight: bold;
+        border-radius: 10px;
+        box-shadow: 0px 4px 15px rgba(255, 0, 0, 0.4);
+    }
+    .stSelectbox, .stCheckbox { color: #ffffff; }
+    h1 { color: #ff4b4b; text-align: center; text-shadow: 2px 2px #000; }
+    .metric-card {
+        background-color: #161b22;
+        border: 1px solid #30363d;
+        padding: 15px;
+        border-radius: 10px;
+        text-align: center;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
-# --- LISTA COMPLETA DO MIGUEL ---
-lista_completa = [
-    "iPhone 15", "iPhone 15 Plus", "iPhone 15 Pro", "iPhone 15 Pro Max", "iPhone 16", "iPhone 16 Plus", 
-    "iPhone 16 Pro", "iPhone 16 Pro Max", "iPhone 16e", "iPhone 17", "iPhone 17 Plus", "iPhone 17 Pro", 
-    "iPhone 17 Pro Max", "iPhone 17e", "iPhone Air", "Galaxy S24", "Galaxy S24+", "Galaxy S24 Ultra", 
-    "Galaxy S25", "Galaxy S25+", "Galaxy S25 Ultra", "Galaxy S25 FE", "Galaxy S26", "Galaxy S26+", 
-    "Galaxy S26 Ultra", "Galaxy A05", "Galaxy A05s", "Galaxy A15", "Galaxy A25", "Galaxy A35", 
-    "Galaxy A55", "Galaxy A17", "Galaxy Z Flip 6", "Galaxy Z Flip 7", "Galaxy Z Flip 7 FE", 
-    "Galaxy Z Fold 6", "Galaxy Z Fold 7", "Motorola Razr 40", "Motorola Razr 50", "Motorola Razr 2025",
-    "Xiaomi 13", "Xiaomi 13 Pro", "Xiaomi 13 Ultra", "Xiaomi 14", "Xiaomi 14 Pro", "Xiaomi 14 Ultra",
-    "Xiaomi 15", "Xiaomi 15 Pro", "Xiaomi 15 Ultra", "Redmi 13", "Redmi 13C", "Redmi 14", "Redmi 14C",
-    "Redmi 15", "Redmi 15C", "Redmi Note 13", "Redmi Note 13 Pro", "Redmi Note 13 Pro+",
-    "Redmi Note 14", "Redmi Note 14 Pro", "Redmi Note 14 Pro+", "Poco X6", "Poco X6 Pro", "Poco X7", 
-    "Poco X7 Pro", "Poco F6", "Poco F6 Pro", "Poco F7", "Poco F8 Pro", "Motorola Edge 40", 
-    "Motorola Edge 40 Pro", "Motorola Edge 50", "Motorola Edge 50 Pro", "Motorola Edge 50 Ultra", 
-    "Motorola Edge 60", "Motorola Edge 60 Pro", "Moto G14", "Moto G24", "Moto G34", "Moto G54", 
-    "Moto G56", "Moto G75", "Moto G84", "Realme 11", "Realme 11 Pro+", "Realme 12", "Realme 12 Pro+", 
-    "Realme 13", "Realme 13 Pro+", "Realme 14", "Realme 14 Pro+", "Oppo Reno 13", "Oppo Reno 15 Pro Max", 
-    "Oppo Find X8 Pro", "Vivo V40", "Vivo V50 Pro", "Vivo X200 Ultra", "Google Pixel 9 Pro", 
-    "Google Pixel 10 Pro", "OnePlus 13", "Nothing Phone 2", "Nothing Phone 3"
-]
+st.title("🛡️ GAME BOOST IA: PRO")
+st.write("---")
 
-# --- PAINEL LATERAL ---
-st.sidebar.header("⚙️ Configurações")
-celular_usuario = st.sidebar.selectbox("Escolha seu Aparelho:", sorted(lista_completa))
-
-st.sidebar.subheader("🛠️ Opções de Otimização")
-boost_ram = st.sidebar.checkbox("Limpar Memória RAM")
-boost_gpu = st.sidebar.checkbox("Forçar Renderização GPU")
-boost_cache = st.sidebar.checkbox("Limpar Cache do Celular")
-
-estilo = st.sidebar.radio("Estilo de Jogo:", ["Rushador (Sensi Alta)", "Suporte (Sensi Média)", "Instaplayer"])
-
-# --- BOTÃO PRINCIPAL ---
-if st.button("GERAR SENSI E OTIMIZAR"):
-    with st.status(f"Otimizando seu {celular_usuario}...", expanded=True) as status:
-        if boost_ram:
-            st.write("⚡ Liberando RAM...")
-            time.sleep(0.6)
-        if boost_gpu:
-            st.write("🎮 Calibrando Drivers Gráficos...")
-            time.sleep(0.6)
-        if boost_cache:
-            st.write("🗑️ Removendo Cache...")
-            time.sleep(0.6)
-        st.write("🎯 Calculando Sensi de Elite...")
-        time.sleep(0.8)
-        status.update(label="✅ OTIMIZAÇÃO CONCLUÍDA!", state="complete", expanded=False)
-
-    st.divider()
-
-    # RESULTADOS DE SENSIBILIDADE
-    st.subheader(f"🎯 Sensibilidade: {celular_usuario}")
+# --- SISTEMA DE SELEÇÃO ---
+col1, col2 = st.columns(2)
+with col1:
+    marca = st.selectbox("Marca do Celular:", ["Apple", "Samsung", "Xiaomi/Poco", "Motorola", "Realme", "Outros"])
+with col2:
+    # Lista dinâmica baseada na marca
+    if marca == "Apple": dispositivos = ["iPhone 13", "iPhone 14", "iPhone 15 Pro", "iPhone 16 Pro Max"]
+    elif marca == "Samsung": dispositivos = ["Galaxy A05", "Galaxy A15", "Galaxy A55", "Galaxy S24 Ultra", "Galaxy S25 Ultra"]
+    elif marca == "Xiaomi/Poco": dispositivos = ["Poco X6 Pro", "Poco F6", "Redmi Note 13", "Xiaomi 14 Ultra"]
+    else: dispositivos = ["Moto G84", "Edge 50 Pro", "Realme 12 Pro+", "Rog Phone 8"]
     
-    if "iPhone" in celular_usuario or "Ultra" in celular_usuario or "Pro" in celular_usuario:
-        geral, red, m2x, m4x, awm, olha = "94", "97", "92", "90", "50", "75"
-    else:
-        geral, red, m2x, m4x, awm, olha = "98", "100", "96", "94", "45", "80"
+    celular = st.selectbox("Modelo:", dispositivos)
 
-    c1, c2, c3 = st.columns(3)
-    with c1:
-        st.metric("GERAL", geral)
-        st.metric("MIRA 2X", m2x)
-    with c2:
-        st.metric("PONTO VERMELHO", red)
-        st.metric("MIRA 4X", m4x)
-    with c3:
-        st.metric("AWM", awm)
-        st.metric("OLHADINHA", olha)
+st.subheader("🛠️ Módulos de Injeção")
+c_boost1, c_boost2, c_boost3 = st.columns(3)
+with c_boost1: boost_fps = st.checkbox("🔥 FPS UNLOCK")
+with c_boost2: boost_sensi = st.checkbox("🎯 SENSI 2.0")
+with c_boost3: boost_net = st.checkbox("🌐 PING ZERO")
 
+# --- EXECUÇÃO ---
+if st.button("INJETAR OTIMIZAÇÃO NO SISTEMA"):
+    with st.status("🔍 Analisando Hardware...", expanded=True) as status:
+        time.sleep(1)
+        st.write(f"📁 Acessando registros do {celular}...")
+        time.sleep(0.8)
+        if boost_fps: st.write("🚀 Desbloqueando limite de 120 FPS..."); time.sleep(0.5)
+        if boost_sensi: st.write("🎯 Calibrando touch screen..."); time.sleep(0.5)
+        st.write("✅ Scripts injetados com sucesso!")
+        status.update(label="🚀 OTIMIZAÇÃO CONCLUÍDA!", state="complete", expanded=False)
+
+    st.balloons()
+    
+    # --- RESULTADOS ESTILO PAINEL ---
+    st.markdown("### 📊 Resultado da Calibração")
+    
+    # Lógica de Sensi Aleatória mas "Realista"
+    s1, s2, s3, s4 = st.columns(4)
+    with s1: st.metric("GERAL", f"{random.randint(95, 100)}")
+    with s2: st.metric("RED DOT", f"{random.randint(94, 99)}")
+    with s3: st.metric("2X", f"{random.randint(92, 98)}")
+    with s4: st.metric("4X", f"{random.randint(90, 96)}")
+
+    st.success(f"**DPI RECOMENDADA:** {random.choice([580, 600, 620, 710, 800])}")
+    
     st.divider()
+    
+    # --- BOTÕES SOCIAIS ---
+    st.write("#### 🔗 Links Oficiais")
+    btn1, btn2 = st.columns(2)
+    with btn1:
+        st.link_button("📱 SEGUE NO TIKTOK", "https://www.tiktok.com/@3wmiguel", use_container_width=True)
+    with btn2:
+        st.link_button("🎮 ABRIR FREE FIRE", "https://play.google.com/store/apps/details?id=com.dts.freefireth", use_container_width=True)
 
-    # DICAS DE SISTEMA
-    st.subheader("📱 Ajustes no Celular")
-    st.info("**CONFIGURAÇÃO RECOMENDADA:**\n\n- Escala de Animação: 0.5x\n- DPI Sugerida: 620\n- Botão de Tiro: 52%")
-
-    st.divider()
-
-    # BOTÃO PARA ENTRAR NO FREE FIRE
-    st.subheader("🎮 TESTAR AGORA")
-    link_ff = "https://play.google.com/store/apps/details?id=com.dts.freefireth" 
-    st.link_button("🔥 ENTRAR NO FREE FIRE", link_ff, use_container_width=True)
-
-    st.divider()
-
-    # SEÇÃO DO TIKTOK (PEDIDO DO MIGUEL)
-    col_tk1, col_tk2 = st.columns([2, 1])
-    with col_tk1:
-        st.write("### pode dar uma força me seguindo no tik tok")
-    with col_tk2:
-        st.link_button("Ir para o TikTok", "https://www.tiktok.com/@3wmiguel")
-
-st.markdown("---")
-st.caption("GAME BOOST IA - Desenvolvido por 3W Miguel")
+st.markdown("<br><center><p style='color: gray;'>Versão 2.4.0 Patch Note | Desenvolvido por 3W Miguel</p></center>", unsafe_allow_html=True)
