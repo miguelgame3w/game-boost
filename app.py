@@ -2,192 +2,126 @@ import streamlit as st
 import time
 import random
 
-# Configuração da aba do navegador e Layout Amplo
-st.set_page_config(page_title="GAME BOOST IA: ELITE V3", page_icon="🛡️", layout="wide")
+# Configuração de Layout
+st.set_page_config(page_title="GAME BOOST IA: GOD MODE", page_icon="⚡", layout="wide")
 
-# ------------------------------------------------------------------------------------------------------
-# CSS AVANÇADO - O SEGREDO DO VISUAL "HACKER / PREMIER"
-# ------------------------------------------------------------------------------------------------------
+# CSS PREMIER - O MAIS BONITO QUE JÁ FIZEMOS
 st.markdown("""
     <style>
-    /* Fundo Dark com Grid Cibernético */
     .main {
-        background-color: #06090f;
-        background-image: linear-gradient(#111 1px, transparent 1px), linear-gradient(90deg, #111 1px, transparent 1px);
-        background-size: 30px 30px;
+        background-color: #050505;
+        background-image: radial-gradient(#220000 0.5px, transparent 0.5px);
+        background-size: 20px 20px;
         color: white;
+        font-family: 'Consolas', monospace;
     }
-    
-    /* Esconde o menu padrão do Streamlit */
     #MainMenu, footer, header {visibility: hidden;}
     
-    /* Estilo do Título com Brilho Neon Vermelho */
-    .titan-title {
+    .glow-title {
         color: #ff0000;
         text-align: center;
-        font-family: 'Montserrat', sans-serif;
-        font-weight: 800;
-        font-size: 55px;
+        font-weight: 900;
+        font-size: 60px;
         text-transform: uppercase;
-        letter-spacing: 3px;
-        text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000;
-        margin-bottom: 5px;
+        text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 40px #ff0000;
+        margin-top: -40px;
+        animation: pulse 2s infinite;
     }
-    .titan-subtitle { color: #888; text-align: center; font-size: 18px; margin-top: -10px; margin-bottom: 30px; }
+    @keyframes pulse {
+        0% { opacity: 1; }
+        50% { opacity: 0.7; }
+        100% { opacity: 1; }
+    }
+    
+    .stTextInput>div>div>input {
+        background-color: #000;
+        color: #00ff00; /* Texto verde estilo Hacker */
+        border: 2px solid #ff0000;
+        border-radius: 5px;
+        padding: 15px;
+        font-size: 20px;
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
+    }
 
-    /* Estilo dos Selectboxes e Checkboxes */
-    .stSelectbox div[data-baseweb="select"] { background-color: #161b22; border: 1px solid #30363d; border-radius: 8px; }
-    .stSelectbox label, .stCheckbox label { color: #aaa !important; font-weight: bold; }
-
-    /* Botão Principal com Efeito de Pulso Neon */
     .stButton>button {
         width: 100%;
-        background: linear-gradient(135deg, #800000 0%, #ff0000 100%);
-        color: white;
-        border: none;
-        padding: 18px;
-        font-size: 22px;
-        font-weight: 800;
-        border-radius: 12px;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        box-shadow: 0px 5px 20px rgba(255, 0, 0, 0.5);
-        transition: all 0.3s ease;
-    }
-    .stButton>button:hover {
-        transform: translateY(-3px);
-        box-shadow: 0px 8px 30px rgba(255, 0, 0, 0.8);
-        background: linear-gradient(135deg, #ff0000 0%, #800000 100%);
-    }
-
-    /* Cartão de Sensi com Borda Neon Pulsante */
-    .sensi-card {
-        background-color: #10141b;
+        background: #000;
+        color: #ff0000;
         border: 2px solid #ff0000;
         padding: 20px;
-        border-radius: 15px;
-        text-align: center;
-        box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
-        margin-bottom: 20px;
+        font-size: 24px;
+        font-weight: 900;
+        text-transform: uppercase;
+        box-shadow: 0 0 15px #ff0000;
+        transition: 0.4s;
     }
-    .sensi-card:hover { box-shadow: 0 0 25px rgba(255, 0, 0, 0.6); transform: scale(1.03); transition: 0.3s; }
-    .sensi-label { color: #888; font-size: 14px; text-transform: uppercase; font-weight: bold; }
-    .sensi-value { color: #ff0000; font-size: 48px; font-weight: 800; text-shadow: 0 0 10px #ff0000; }
+    .stButton>button:hover { background: #ff0000; color: #000; box-shadow: 0 0 50px #ff0000; }
 
-    /* Estilo do Rodapé */
-    .footer-text { color: #444; text-align: center; font-size: 14px; margin-top: 50px; }
+    .sensi-card {
+        background-color: #000;
+        border: 1px solid #ff0000;
+        padding: 20px;
+        border-radius: 0px; /* Estilo quadrado mais agressivo */
+        text-align: center;
+        box-shadow: inset 0 0 10px #ff0000;
+    }
+    .sensi-value { color: #ff0000; font-size: 70px; font-weight: 900; text-shadow: 0 0 10px #ff0000; }
     
-    /* Estilo das Notificações (Simulação de log) */
-    .stAlert { background-color: #161b22; border: 1px solid #ff0000; color: #ff4b4b; border-radius: 10px; }
+    .terminal-text { color: #00ff00; font-size: 12px; line-height: 1; }
     </style>
     """, unsafe_allow_html=True)
 
-# ------------------------------------------------------------------------------------------------------
-# CONTEÚDO PRINCIPAL DO PAINEL
-# ------------------------------------------------------------------------------------------------------
+st.markdown('<div class="glow-title">GAME BOOST IA</div>', unsafe_allow_html=True)
+st.markdown("<p style='text-align:center; color:#555;'>V7.4.0 // GENERATIVE ENGINE // BY 3W MIGUEL</p>", unsafe_allow_html=True)
 
-# Título Principal com Brilho Neon
-st.markdown('<div class="titan-title">🛡️ GAME BOOST IA</div>', unsafe_allow_html=True)
-st.markdown('<div class="titan-subtitle">Painel de Injeção de Scripts e Otimização de Elite</div>', unsafe_allow_html=True)
-
-# Centralizar os controles
 with st.container():
-    # --- SISTEMA DE SELEÇÃO INTELIGENTE ---
-    col_ap1, col_ap2 = st.columns([1, 1])
-    with col_ap1:
-        marca = st.selectbox("Selecione o Fabricante:", ["Selecione...", "Apple", "Samsung", "Xiaomi", "Motorola", "Realme"])
-    with col_ap2:
-        if marca == "Apple": disp = ["iPhone 13", "iPhone 14 Pro", "iPhone 15 Pro Max", "iPhone 16 Pro Max"]
-        elif marca == "Samsung": disp = ["Galaxy A05", "Galaxy A15", "Galaxy S24 Ultra", "Galaxy S25 Ultra"]
-        elif marca == "Xiaomi": disp = ["Poco X6 Pro", "Poco F6 Pro", "Redmi Note 13", "Xiaomi 14 Ultra"]
-        else: disp = ["Moto G84", "Edge 50 Ultra", "Realme 12 Pro+"]
-        
-        celular = st.selectbox("Selecione o Modelo:", disp, disabled=(marca == "Selecione..."))
+    st.markdown("### [!] IDENTIFICAÇÃO DE HARDWARE")
+    user_input = st.text_input("ENTER DEVICE SPECS:", placeholder="EX: IPHONE 16 PRO MAX / REDMI NOTE 15")
 
-    # --- MÓDULOS DE INJEÇÃO NEON ---
     st.write("###")
-    st.markdown("#### 🛠️ Módulos de Performance")
-    cb1, cb2, cb3, cb4 = st.columns(4)
-    with cb1: fps = st.checkbox("🔥 FPS UNLOCK (120 FPS)")
-    with cb2: sensi = st.checkbox("🎯 SENSI 2.0 (TOUCH)")
-    with cb3: net = st.checkbox("🌐 PING ZERO (ROUTE)")
-    with cb4: anticheat = st.checkbox("🛡️ ANTI-BAN (BYPASS)")
+    col1, col2, col3 = st.columns(3)
+    with col1: fps = st.toggle("FORCE 120 FPS", value=True)
+    with col2: bypass = st.toggle("BYPASS ANTICHEAT", value=True)
+    with col3: regedit = st.toggle("INJECT REGEDIT", value=True)
 
-    st.write("---")
-
-    # --- BOTÃO PRINCIPAL COM EFEITO DE PULSO ---
-    if st.button("INICIAR INJEÇÃO DE CÓDIGO", key="run_btn"):
-        if marca == "Selecione..." or not celular:
-            st.error("⚠️ ERRO CRÍTICO: Selecione o fabricante e o modelo do dispositivo!")
+    if st.button("RUN EXECUTABLE"):
+        if not user_input:
+            st.error("ACCESS DENIED: DEVICE NAME REQUIRED")
         else:
-            # --- SIMULAÇÃO DE CARREGAMENTO HACKER COM BARRA DE NEON ---
-            status_text = st.empty()
-            prog_bar = st.progress(0)
+            # TERMINAL HACKER EM TEMPO REAL
+            terminal = st.empty()
+            log_lines = []
             
-            # Textos de Log para dar Hype
-            logs = [
-                f"🔍 Analisando arquitetura do {celular}...",
-                "📁 Acessando registros do sistema...",
-                "🛡️ Iniciando protocolo de Anti-Ban Bypass...",
-                "🎯 Calibrando touch screen de alta precisão...",
-                "🔥 Desbloqueando limite de FPS do Hardware...",
-                "🌐 Otimizando rota de conexão (Ping Zero)...",
-                "🎯 Calculando Sensibilidade Mítica...",
-                "✅ Sincronizando scripts com o Free Fire..."
-            ]
-
-            for i in range(101):
-                # Atualizar texto de log aleatoriamente
-                if i % 12 == 0:
-                    status_text.markdown(f'<p style="color:#ff4b4b; font-family:monospace; text-align:center;">{random.choice(logs)}</p>', unsafe_allow_html=True)
-                
-                # Barra de progresso Neon (Simulada via Streamlit mas com CSS customizado)
-                prog_bar.progress(i)
-                time.sleep(0.04) # Velocidade da animação
+            for _ in range(15):
+                new_log = f">> {random.choice(['SEARCHING', 'INJECTING', 'DECRYPTING', 'BYPASSING'])}: {random.randint(1000,9999)}... OK"
+                log_lines.append(new_log)
+                if len(log_lines) > 5: log_lines.pop(0)
+                terminal.markdown(f'<div class="terminal-text">{"<br>".join(log_lines)}</div>', unsafe_allow_html=True)
+                time.sleep(0.2)
 
             st.balloons()
-            status_text.empty()
-            prog_bar.empty()
+            terminal.empty()
 
-            st.markdown(f'### ✅ OTIMIZAÇÃO CONCLUÍDA NO {celular.upper()}!')
+            # LÓGICA DE SENSI 200 PRO
+            input_lower = user_input.lower()
+            base = 150 if "iphone" in input_lower else 185
+            g = random.randint(base, 200)
+            r = random.randint(base, 200)
+            m2 = random.randint(base-10, 200)
+            m4 = random.randint(base-15, 200)
+
+            st.markdown(f"## >> RESULTADO PARA: {user_input.upper()}")
             
-            # --- RESULTADO ESTILO PAINEL DE SENSIVELIDADE NEON ---
-            st.markdown("#### 🎯 Sensibilidade de Elite Calculada")
+            c1, c2, c3, c4 = st.columns(4)
+            with c1: st.markdown(f'<div class="sensi-card"><p>GERAL</p><p class="sensi-value">{g}</p></div>', unsafe_allow_html=True)
+            with c2: st.markdown(f'<div class="sensi-card"><p>RED DOT</p><p class="sensi-value">{r}</p></div>', unsafe_allow_html=True)
+            with c3: st.markdown(f'<div class="sensi-card"><p>2X</p><p class="sensi-value">{m2}</p></div>', unsafe_allow_html=True)
+            with s4: st.markdown(f'<div class="sensi-card"><p>4X</p><p class="sensi-value">{m4}</p></div>', unsafe_allow_html=True)
+
+            st.write("###")
+            st.success(f"DPI: {random.choice([600, 720, 800])} // BOTÃO: {random.choice([52, 55])}%")
             
-            s_col1, s_col2, s_col3, s_col4 = st.columns(4)
-            
-            # Lógica de Sensi "Inteligente"
-            if "Ultra" in celular or "Pro" in celular or "iPhone 15" in celular:
-                g, r, m2, m4 = "94", "97", "92", "90"
-            else:
-                g, r, m2, m4 = "98", "100", "96", "94"
-
-            # Cartões Neon usando HTML/CSS
-            with s_col1:
-                st.markdown(f'<div class="sensi-card"><div class="sensi-label">GERAL</div><div class="sensi-value">{g}</div></div>', unsafe_allow_html=True)
-            with s_col2:
-                st.markdown(f'<div class="sensi-card"><div class="sensi-label">RED DOT</div><div class="sensi-value">{r}</div></div>', unsafe_allow_html=True)
-            with s_col3:
-                st.markdown(f'<div class="sensi-card"><div class="sensi-label">MIRA 2X</div><div class="sensi-value">{m2}</div></div>', unsafe_allow_html=True)
-            with s_col4:
-                st.markdown(f'<div class="sensi-card"><div class="sensi-label">MIRA 4X</div><div class="sensi-value">{m4}</div></div>', unsafe_allow_html=True)
-
-            # Informações Adicionais
-            info_col1, info_col2 = st.columns(2)
-            with info_col1:
-                st.info(f"💡 **DPI RECOMENDADA:** {random.choice([580, 600, 620, 710, 800])}")
-            with info_col2:
-                st.warning(f"💡 **BOTÃO DE TIRO:** {random.choice([50, 52, 55])}%")
-
             st.divider()
-            
-            # --- SEÇÃO SOCIAL E DE JOGO ---
-            st.markdown("#### 🔗 Links Oficiais")
-            l_col1, l_col2 = st.columns(2)
-            with l_col1:
-                st.link_button("📱 ME SEGUIR NO TIKTOK (@3WMIGUEL)", "https://www.tiktok.com/@3wmiguel", use_container_width=True)
-            with l_col2:
-                st.link_button("🔥 ABRIR FREE FIRE", "https://play.google.com/store/apps/details?id=com.dts.freefireth", use_container_width=True)
+            st.link_button("📱 TIKTOK @3WMIGUEL", "https://www.tiktok.com/@3wmiguel", use_container_width=True)
 
-# Rodapé minimalista
-st.markdown('<div class="footer-text">Versão 3.1.2 Patch Note | Desenvolvido por 3W Miguel | Sistema de IA Patenteado</div>', unsafe_allow_html=True)
+st.markdown("<p style='text-align:center; color:#222;'>INTERNAL SYSTEM v7 // NO ERRORS FOUND</p>", unsafe_allow_html=True)
