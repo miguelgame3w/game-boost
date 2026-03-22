@@ -6,47 +6,43 @@ import random
 # 1. CONFIGURAÇÃO DE ELITE (Design e Layout Clean)
 # ==============================================================================
 st.set_page_config(
-    page_title="PAINEL SENSI PRO: PURPLE EDITION",
+    page_title="GAME BOOST PRO",
     page_icon="⚡",
     layout="centered", # Centralizado igual app de celular
     initial_sidebar_state="collapsed"
 )
 
 # ==============================================================================
-# 2. CSS AVANÇADO - CLONANDO O VISUAL DO PRINT COM PEGADA ROXA
+# 2. CSS AVANÇADO - CLONANDO O VISUAL DO PRINT
 # ==============================================================================
 st.markdown("""
     <style>
     /* Fundo Escuro Profundo do App */
-    .main { 
-        background-color: #0b0d13; 
-        color: #e1e3e8 !important; /* Texto claro padrão, corrigido */
-        font-family: 'Segoe UI', system-ui, sans-serif; 
-    }
+    .main { background-color: #0b0d13; color: #e1e3e8; font-family: 'Segoe UI', system-ui, sans-serif; }
     #MainMenu, footer, header {visibility: hidden;}
 
     /* Título (Discreto, igual print) */
     .app-title { color: #888; text-align: center; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; margin-top: -50px; margin-bottom: 30px;}
 
-    /* Contêineres de Entrada (Bater, Armazenamento) e Texto DENTRO delas */
+    /* Contêineres de Entrada (Bater, Armazenamento) */
     .stTextInput>div, .stNumberInput>div, .stSelectbox>div[data-baseweb="select"] {
         background-color: #11141d;
         border: 1px solid #1e2230;
         border-radius: 12px;
-        color: white !important; # Corrigido para texto branco dentro
+        color: white;
     }
     .stTextInput input, .stNumberInput input { color: white !important; font-size: 16px;}
     label { color: #888 !important; font-size: 12px !important; text-transform: uppercase; font-weight: bold;}
 
-    /* --- SLIDER CUSTOMIZADO (DPI) ROXO --- */
-    .stSlider > div > div > div > div { background: #7f00ff; } /* Cor da barra preenchida - ROXO */
-    .stSlider > div > div > div > div[data-testid="stSliderThumb"] { background-color: #7f00ff; border: 2px solid white;} /* A bolinha - ROXO */
+    /* --- SLIDER CUSTOMIZADO (DPI) --- */
+    .stSlider > div > div > div > div { background: #ff4b4b; } /* Cor da barra preenchida */
+    .stSlider > div > div > div > div[data-testid="stSliderThumb"] { background-color: #ff4b4b; border: 2px solid white;} /* A bolinha */
     
-    /* Display da DPI (O numerozinho no canto) - ROXO */
+    /* Display da DPI (O numerozinho vermelho no canto) */
     .dpi-display {
-        background-color: #1a1e29;
-        color: #7f00ff; /* Texto ROXO */
-        border: 1px solid #7f00ff; /* Borda ROXA */
+        background-color: #210a0a;
+        color: #ff4b4b;
+        border: 1px solid #ff4b4b;
         padding: 5px 10px;
         border-radius: 8px;
         font-weight: bold;
@@ -54,7 +50,7 @@ st.markdown("""
         margin-top: -35px;
     }
 
-    /* --- BOTOÕES DE SELEÇÃO DE S.O. (ANDROID/iOS) COM LÓGICA DE CLIQUE ROXA --- */
+    /* --- BOTOÕES DE SELEÇÃO DE S.O. (ANDROID/iOS) COM LÓGICA DE CORREÇÃO --- */
     div.stButton > button { # Estilo básico inativo (Igual print 1)
         background-color: #1a1e29;
         color: #555;
@@ -66,28 +62,21 @@ st.markdown("""
         transition: 0.3s; # Animação suave
     }
     
-    /* Hover (Quando passa o mouse/dedo): Fica roxo suave */
-    div.stButton > button:hover {
-        background-color: #7f00ff50;
-        color: white;
-        border-color: #7f00ff;
-    }
-
     /* Classes para o estado ATIVO (Serão aplicadas pela lógica Python) */
-    .android-active { background-color: #7f00ff !important; color: white !important; border: none !important; }
-    .ios-active { background-color: #7f00ff !important; color: white !important; border: none !important; }
+    .android-active { background-color: #ff4b4b !important; color: white !important; border: none !important; }
+    .ios-active { background-color: #ff4b4b !important; color: white !important; border: none !important; }
 
-    /* --- CHECKBOXES DE OTIMIZAÇÃO E TEXTO LEGÍVEL (Sem o vermelho feio) --- */
-    .stCheckbox label span { color: #888 !important; font-size: 14px;}
-    .stCheckbox div[data-testid="stMarkdownContainer"] p { color: #888; }
+    /* --- CHECKBOXES DE OTIMIZAÇÃO E TEXTO LEGÍVEL --- */
+    .stCheckbox label span { color: #eee !important; font-size: 14px;}
+    .stCheckbox div[data-testid="stMarkdownContainer"] p { color: #eee; }
     
-    /* A caixinha do Checkbox quando marcada: Fica ROXA */
-    .stCheckbox input[type="checkbox"]:checked + div { background-color: #7f00ff !important; border-color: #7f00ff !important;}
+    /* A caixinha do Checkbox quando marcada: Fica VERMELHA */
+    .stCheckbox input[type="checkbox"]:checked + div { background-color: #ff4b4b !important; border-color: #ff4b4b !important;}
 
-    /* Botão Principal Final ROXO */
+    /* Botão Principal Final VERMELHO */
     .main-btn>div>button {
         width: 100%;
-        background-color: #7f00ff; /* ROXO */
+        background-color: #ff4b4b;
         color: white;
         border: none;
         padding: 20px;
@@ -95,11 +84,11 @@ st.markdown("""
         font-weight: bold;
         border-radius: 15px;
         margin-top: 30px;
-        box-shadow: 0 4px 15px rgba(127, 0, 255, 0.3);
+        box-shadow: 0 4px 15px rgba(255, 75, 75, 0.3);
     }
-    .main-btn>div>button:hover { background-color: #7200e6; }
+    .main-btn>div>button:hover { background-color: #ff3333; }
 
-    /* Cards de Sensi ROXOS */
+    /* Cards de Sensi VERMELHOS */
     .sensi-card {
         background-color: #11141d;
         border: 1px solid #1e2230;
@@ -109,10 +98,6 @@ st.markdown("""
         margin-bottom: 10px;
     }
     .sensi-card p { margin: 0; padding: 0; }
-    
-    /* Texto dos inputs legível */
-    .stTextInput>div>div>input::placeholder { color: #555; }
-    .stSelectbox>div[data-baseweb="select"] div[data-testid="stMarkdownContainer"] p { color: white !important; }
     </style>
     """, unsafe_allow_html=True)
 
@@ -125,12 +110,7 @@ st.markdown('<div class="app-title">PAINEL SENSI PRO</div>', unsafe_allow_html=T
 
 # Centralizar os controles
 with st.container():
-    st.markdown('<div class="xit-title-glow">🛡️ PAINEL SENSI PRO</div>', unsafe_allow_html=True)
-    st.markdown("<p style='text-align:center; color:#555;'>V6.1.1 // PURPLE GENERATIVE ENGINE // BY 3W MIGUEL</p>", unsafe_allow_html=True)
-    
-    st.write("---")
-    
-    # --- SISTEMA DE SELEÇÃO (ANDROID/iOS) COM LÓGICA ROXA ---
+    # --- SISTEMA DE SELEÇÃO (ANDROID/iOS) COM LÓGICA DE CORREÇÃO ---
     if 'sistema_operacional' not in st.session_state:
         st.session_state.sistema_operacional = 'ANDROID' # Inicia com Android ativo
 
@@ -154,8 +134,7 @@ with st.container():
 
     # --- MODELO DO CELULAR ---
     st.write("###")
-    p_holder = "Ex: Redmi note 11" if st.session_state.sistema_operacional == 'ANDROID' else "Ex: iPhone 15 Pro Max"
-    modelo = st.text_input("MODELO DO TE...", placeholder=p_holder)
+    modelo = st.text_input("MODELO DO TE...", placeholder="Ex: Redmi note 11")
 
     # --- BATER (OPÇÃO) & ARMAZENAMENTO (ESCREVER) ---
     col_in1, col_in2 = st.columns(2)
@@ -166,10 +145,10 @@ with st.container():
         # Armazenamento como campo de ESCREVER (Text Input, igual print)
         storage = st.text_input("ARMAZENAMENTO", placeholder="Ex: 256 GB")
 
-    # --- DPI PERSONALIZADA (Com display roxo) ---
+    # --- DPI PERSONALIZADA (Com display vermelho igual print) ---
     st.write("###")
     st.write("⚡ DPI PERSONALIZADA")
-    # Lógica para mostrar o número dinâmico no estilo do print, mas ROXO
+    # Lógica para mostrar o número dinâmico no estilo do print
     dpi_val = st.slider("", 100, 1000, 821, label_visibility="collapsed")
     st.markdown(f'<div class="dpi-display">{dpi_val}</div>', unsafe_allow_html=True)
     st.write("<div style='display:flex; justify-content:space-between; color:#555; font-size:10px;'><span>MIN</span><span>MÁXIMO</span></div>", unsafe_allow_html=True)
@@ -182,7 +161,7 @@ with st.container():
     check_mira = st.checkbox("MIRA NÃO PASSAR")
 
 # ==============================================================================
-# 4. BOTÃO PRINCIPAL E LÓGICA DE SENSI (Resultados ROXOS)
+# 4. BOTÃO PRINCIPAL E LÓGICA DE SENSI (Resultados Vermelhos)
 # ==============================================================================
 st.write("---")
 # Usamos uma chave CSS personalizada para o botão final
@@ -201,14 +180,14 @@ if run_btn:
         st.balloons()
         st.success(f"SENSI {st.session_state.sistema_operacional} GERADA PARA: {modelo.upper()} ({ram})")
         
-        # Resultados estilo Card Clean, com números ROXOS
+        # Resultados estilo Card Clean, com números vermelhos
         c1, c2, c3, c4 = st.columns(4)
-        with c1: st.markdown(f'<div class="sensi-card"><p style="color:#888;">GERAL</p><p style="color:#7f00ff; font-size:30px; font-weight:bold;">{random.randint(95,100)}</p></div>', unsafe_allow_html=True)
-        with c2: st.markdown(f'<div class="sensi-card"><p style="color:#888;">RED DOT</p><p style="color:#7f00ff; font-size:30px; font-weight:bold;">{random.randint(94,99)}</p></div>', unsafe_allow_html=True)
-        with c3: st.markdown(f'<div class="sensi-card"><p style="color:#888;">MIRA 2X</p><p style="color:#7f00ff; font-size:30px; font-weight:bold;">{random.randint(92,98)}</p></div>', unsafe_allow_html=True)
-        with c4: st.markdown(f'<div class="sensi-card"><p style="color:#888;">MIRA 4X</p><p style="color:#7f00ff; font-size:30px; font-weight:bold;">{random.randint(90,96)}</p></div>', unsafe_allow_html=True)
+        with c1: st.markdown(f'<div class="sensi-card"><p style="color:#888;">GERAL</p><p style="color:#ff4b4b; font-size:30px; font-weight:bold;">{random.randint(95,100)}</p></div>', unsafe_allow_html=True)
+        with c2: st.markdown(f'<div class="sensi-card"><p style="color:#888;">RED DOT</p><p style="color:#ff4b4b; font-size:30px; font-weight:bold;">{random.randint(94,99)}</p></div>', unsafe_allow_html=True)
+        with c3: st.markdown(f'<div class="sensi-card"><p style="color:#888;">MIRA 2X</p><p style="color:#ff4b4b; font-size:30px; font-weight:bold;">{random.randint(92,98)}</p></div>', unsafe_allow_html=True)
+        with c4: st.markdown(f'<div class="sensi-card"><p style="color:#888;">MIRA 4X</p><p style="color:#ff4b4b; font-size:30px; font-weight:bold;">{random.randint(90,96)}</p></div>', unsafe_allow_html=True)
 
         st.divider()
-        st.link_button("📱 SEGUE NO TIKTOK (@3wmiguel)", "https://www.tiktok.com/@3wmiguel", use_container_width=True)
+        st.link_button("📱 MEU TIKTOK (@3wmiguel)", "https://www.tiktok.com/@3wmiguel", use_container_width=True)
 
-st.markdown("<br><p style='text-align:center; color:#222; font-size:10px;'>Powered by 3W Miguel Purple Pro Engine</p>", unsafe_allow_html=True)
+st.markdown("<br><p style='text-align:center; color:#222; font-size:10px;'>Powered by 3W Miguel Pro Engine</p>", unsafe_allow_html=True)
