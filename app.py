@@ -13,7 +13,7 @@ st.set_page_config(
 )
 
 # ==============================================================================
-# 2. CSS AVANÇADO - CLONANDO O VISUAL DO PRINT
+# 2. CSS AVANÇADO - CLONANDO O VISUAL DO PRINT E TÍTULO HYPE
 # ==============================================================================
 st.markdown("""
     <style>
@@ -21,15 +21,34 @@ st.markdown("""
     .main { background-color: #0b0d13; color: #e1e3e8; font-family: 'Segoe UI', system-ui, sans-serif; }
     #MainMenu, footer, header {visibility: hidden;}
 
-    /* Título (Discreto, igual print) */
-    .app-title { color: #888; text-align: center; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; margin-top: -50px; margin-bottom: 30px;}
+    /* --- TÍTULO HYPE COM PEGADA "MALVADA" E BRILHO NEON (CORREÇÃO) --- */
+    .xit-title-glow {
+        color: #ff0000;
+        text-align: center;
+        font-family: 'Montserrat', sans-serif; /* Fonte mais agressiva */
+        font-weight: 800;
+        font-size: 50px;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000;
+        margin-bottom: 5px;
+        animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+        0% { opacity: 1; }
+        50% { opacity: 0.8; }
+        100% { opacity: 1; }
+    }
+    
+    .xit-subtitle { color: #888; text-align: center; font-size: 14px; margin-top: -10px; margin-bottom: 30px; }
 
-    /* Contêineres de Entrada (Bater, Armazenamento) */
+    /* Contêineres de Entrada (Bater, Armazenamento) e Texto DENTRO delas */
     .stTextInput>div, .stNumberInput>div, .stSelectbox>div[data-baseweb="select"] {
         background-color: #11141d;
         border: 1px solid #1e2230;
         border-radius: 12px;
-        color: white;
+        color: white !important; # Corrigido para texto branco dentro
     }
     .stTextInput input, .stNumberInput input { color: white !important; font-size: 16px;}
     label { color: #888 !important; font-size: 12px !important; text-transform: uppercase; font-weight: bold;}
@@ -98,6 +117,10 @@ st.markdown("""
         margin-bottom: 10px;
     }
     .sensi-card p { margin: 0; padding: 0; }
+    
+    /* Texto dos inputs legível */
+    .stTextInput>div>div>input::placeholder { color: #555; }
+    .stSelectbox>div[data-baseweb="select"] div[data-testid="stMarkdownContainer"] p { color: white !important; }
     </style>
     """, unsafe_allow_html=True)
 
@@ -105,11 +128,14 @@ st.markdown("""
 # 3. LAYOUT E CONTEÚDO DO APP
 # ==============================================================================
 
-# Título discreto
-st.markdown('<div class="app-title">PAINEL SENSI PRO</div>', unsafe_allow_html=True)
-
 # Centralizar os controles
 with st.container():
+    # --- TÍTULO HYPE CHAMATIVO VERMELHO (CORREÇÃO) ---
+    st.markdown('<div class="xit-title-glow">🛡️ PAINEL SENSI PRO</div>', unsafe_allow_html=True)
+    st.markdown("<p style='text-align:center; color:#555;'>V6.0.1 // GENERATIVE ENGINE // BY 3W MIGUEL</p>", unsafe_allow_html=True)
+    
+    st.write("---")
+    
     # --- SISTEMA DE SELEÇÃO (ANDROID/iOS) COM LÓGICA DE CORREÇÃO ---
     if 'sistema_operacional' not in st.session_state:
         st.session_state.sistema_operacional = 'ANDROID' # Inicia com Android ativo
@@ -184,10 +210,4 @@ if run_btn:
         c1, c2, c3, c4 = st.columns(4)
         with c1: st.markdown(f'<div class="sensi-card"><p style="color:#888;">GERAL</p><p style="color:#ff4b4b; font-size:30px; font-weight:bold;">{random.randint(95,100)}</p></div>', unsafe_allow_html=True)
         with c2: st.markdown(f'<div class="sensi-card"><p style="color:#888;">RED DOT</p><p style="color:#ff4b4b; font-size:30px; font-weight:bold;">{random.randint(94,99)}</p></div>', unsafe_allow_html=True)
-        with c3: st.markdown(f'<div class="sensi-card"><p style="color:#888;">MIRA 2X</p><p style="color:#ff4b4b; font-size:30px; font-weight:bold;">{random.randint(92,98)}</p></div>', unsafe_allow_html=True)
-        with c4: st.markdown(f'<div class="sensi-card"><p style="color:#888;">MIRA 4X</p><p style="color:#ff4b4b; font-size:30px; font-weight:bold;">{random.randint(90,96)}</p></div>', unsafe_allow_html=True)
-
-        st.divider()
-        st.link_button("📱 MEU TIKTOK (@3wmiguel)", "https://www.tiktok.com/@3wmiguel", use_container_width=True)
-
-st.markdown("<br><p style='text-align:center; color:#222; font-size:10px;'>Powered by 3W Miguel Pro Engine</p>", unsafe_allow_html=True)
+        with c3: st.markdown
