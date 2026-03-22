@@ -6,10 +6,9 @@ import random
 # CONFIGURAÇÃO DE ELITE
 # ==============================================================================
 st.set_page_config(
-    page_title="🛡️ PAINEL SENSI PRO",
+    page_title="🛡️ SENSI XIT PRO",
     page_icon="⚡",
-    layout="centered",
-    initial_sidebar_state="collapsed"
+    layout="centered"
 )
 
 # ==============================================================================
@@ -17,7 +16,7 @@ st.set_page_config(
 # ==============================================================================
 st.markdown("""
     <style>
-    .main { background-color: #0b0d13; color: #e1e3e8 !important; font-family: 'Segoe UI', sans-serif; }
+    .main { background-color: #0b0d13; color: #e1e3e8 !important; }
     #MainMenu, footer, header {visibility: hidden;}
 
     /* TÍTULO MALVADO NEON VERMELHO */
@@ -28,53 +27,47 @@ st.markdown("""
         font-size: 45px;
         text-transform: uppercase;
         text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
-        margin-bottom: 10px;
     }
 
-    /* INPUTS E SELEÇÃO ROXA */
-    .stTextInput>div, .stSelectbox>div[data-baseweb="select"] {
-        background-color: #11141d;
-        border: 1px solid #1e2230;
-        border-radius: 12px;
-    }
-    
-    /* BOTÃO ATIVO ROXO (ANDROID/iOS) */
-    div.stButton > button:active, div.stButton > button:focus {
-        background-color: #7f00ff !important;
-        color: white !important;
-        border: none !important;
-    }
-
-    /* CAIXINHA ROXA QUANDO ATIVADA */
-    .stCheckbox input[type="checkbox"]:checked + div {
-        background-color: #7f00ff !important;
-        border-color: #7f00ff !important;
-    }
-
-    /* BARRA DE SENSI (LAYOUT IGUAL AO PRINT) */
+    /* BARRA DE SENSI (LAYOUT ATUALIZADO) */
     .sensi-container {
         background-color: #161a25;
         border-radius: 15px;
         padding: 20px;
-        margin-top: 20px;
+        border: 1px solid #1e2230;
     }
-    .sensi-row {
-        margin-bottom: 15px;
+    
+    /* BANNER DE STATUS QUE PREENCHE O VAZIO */
+    .status-banner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
     }
+    .status-badge {
+        background-color: rgba(0, 255, 0, 0.1);
+        color: #00ff00;
+        padding: 5px 15px;
+        border-radius: 8px;
+        font-weight: bold;
+        font-size: 12px;
+        border: 1px solid #00ff00;
+    }
+
+    .sensi-row { margin-bottom: 15px; }
     .sensi-label-group {
         display: flex;
         justify-content: space-between;
         margin-bottom: 5px;
         font-weight: bold;
         font-size: 14px;
-        color: #888;
+        color: #e1e3e8;
     }
     .bar-bg {
         background-color: #2a2f3f;
         border-radius: 10px;
         height: 12px;
         width: 100%;
-        overflow: hidden;
     }
     .bar-fill {
         background: linear-gradient(90deg, #7f00ff, #ff0000);
@@ -82,49 +75,26 @@ st.markdown("""
         border-radius: 10px;
     }
     
-    .btn-final > div > button {
+    .stButton > button {
         background-color: #7f00ff;
         color: white;
         width: 100%;
-        padding: 15px;
         border-radius: 12px;
         font-weight: bold;
-        border: none;
     }
     </style>
     """, unsafe_allow_html=True)
 
-# ==============================================================================
-# INTERFACE
-# ==============================================================================
+# Interface de Entrada
 st.markdown('<div class="xit-title-glow">🛡️ SENSI XIT PRO</div>', unsafe_allow_html=True)
-st.markdown("<p style='text-align:center; color:#555;'>V7.0 // PURPLE GEN // BY 3W MIGUEL</p>", unsafe_allow_html=True)
-
-# Seleção de Sistema
-col_so1, col_so2 = st.columns(2)
-with col_so1: st.button("ANDROID", use_container_width=True)
-with col_so2: st.button("iOS", use_container_width=True)
-
 modelo = st.text_input("MODELO DO CELULAR", placeholder="Ex: Redmi Note 11")
+st.write("---")
 
-col_h1, col_h2 = st.columns(2)
-with col_h1: ram = st.selectbox("BATER (RAM)", ["4 GB", "6 GB", "8 GB", "12 GB"])
-with col_h2: storage = st.text_input("ARMAZENAMENTO", placeholder="Ex: 128 GB")
-
-st.write("###")
-st.markdown("#### FUNÇÕES E OTIMIZAÇÃO")
-st.checkbox("FPS A MILHÃO (120+ FPS)")
-st.checkbox("MÉTODO ENSINO MÉDIO COMPLETO")
-st.checkbox("MIRA NÃO PASSAR")
-
-st.markdown('<div class="btn-final">', unsafe_allow_html=True)
 if st.button("GERAR SENSI DE ELITE V7"):
-    with st.spinner("Processando..."):
-        time.sleep(2)
+    with st.spinner("Calibrando..."):
+        time.sleep(1.5)
     
-    st.markdown(f"### 📱 SENSI PARA {modelo.upper()}")
-    
-    # NOVO LAYOUT DE SENSIBILIDADE EM BARRAS (IGUAL AO SEU PRINT)
+    # DADOS DA SENSI
     sensis = {
         "GERAL": random.randint(170, 195),
         "PONTO VERMELHO": random.randint(160, 185),
@@ -134,9 +104,19 @@ if st.button("GERAR SENSI DE ELITE V7"):
         "OLHADINHA": random.randint(110, 130)
     }
 
+    # CONTAINER DE RESULTADO (Preenchendo o vazio)
     st.markdown('<div class="sensi-container">', unsafe_allow_html=True)
+    
+    # Este bloco abaixo é o que preenche o espaço que estava vazio
+    st.markdown(f"""
+        <div class="status-banner">
+            <span style="font-size: 20px; font-weight: bold; color: white;">{modelo.upper()}</span>
+            <span class="status-badge">ATIVADO</span>
+        </div>
+    """, unsafe_allow_html=True)
+
     for nome, valor in sensis.items():
-        porcentagem = (valor / 200) * 100 # Cálculo para a barra
+        porcentagem = (valor / 200) * 100
         st.markdown(f"""
             <div class="sensi-row">
                 <div class="sensi-label-group">
@@ -149,4 +129,3 @@ if st.button("GERAR SENSI DE ELITE V7"):
             </div>
         """, unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
-st.markdown('</div>', unsafe_allow_html=True)
