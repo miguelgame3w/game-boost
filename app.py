@@ -12,7 +12,7 @@ st.set_page_config(
 )
 
 # ==============================================================================
-# 2. CSS AVANÇADO - ANIMAÇÕES, RAIOS E DESIGN PREMIUM
+# 2. CSS AVANÇADO - DESIGN PREMIUM E ANIMAÇÕES SUAVES
 # ==============================================================================
 st.markdown("""
     <style>
@@ -28,18 +28,6 @@ st.markdown("""
     }
     @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.6; } 100% { opacity: 1; } }
 
-    /* --- ANIMAÇÃO DE RAIOS ROXOS --- */
-    @keyframes lightning {
-        0%, 100% { opacity: 0; }
-        10%, 90% { opacity: 0; }
-        11%, 13%, 15% { opacity: 1; text-shadow: 0 0 20px #7f00ff, 0 0 40px #7f00ff; }
-    }
-    .raios {
-        position: fixed; top: 20%; left: 50%; transform: translateX(-50%);
-        font-size: 100px; color: #7f00ff; z-index: 999;
-        pointer-events: none; animation: lightning 3s infinite;
-    }
-
     /* --- ESTILO DOS BOTÕES (ROXO QUANDO ATIVO) --- */
     div.stButton > button {
         background-color: #1a1e29; color: #888; border-radius: 12px;
@@ -50,7 +38,7 @@ st.markdown("""
     div.stButton > button:hover { border-color: #7f00ff; color: white; transform: translateY(-2px); }
     div.stButton > button:active { transform: scale(0.95); }
 
-    /* Lógica de cor para o botão selecionado */
+    /* Lógica de cor para o botão selecionado (Primary) */
     div.stButton > button[kind="primary"] {
         background-color: #7f00ff !important; color: white !important;
         border: none !important; box-shadow: 0 0 15px rgba(127, 0, 255, 0.4);
@@ -72,24 +60,24 @@ st.markdown("""
         background: rgba(0, 255, 0, 0.05);
     }
     
+    /* Checkbox Roxo */
     .stCheckbox input[type="checkbox"]:checked + div {
         background-color: #7f00ff !important; border-color: #7f00ff !important;
     }
     
-    /* Cor do texto dentro dos inputs */
+    /* Texto dos inputs sempre branco */
     .stTextInput input { color: white !important; }
     </style>
     """, unsafe_allow_html=True)
 
 # ==============================================================================
-# 3. LÓGICA DE MEMÓRIA (PLATAFORMA E PLACEHOLDER)
+# 3. LÓGICA DE MEMÓRIA (SISTEMA E DICAS)
 # ==============================================================================
 if 'plataforma' not in st.session_state:
     st.session_state.plataforma = "ANDROID"
 
-# Título e Subtítulo
 st.markdown('<div class="xit-title-glow">🛡️ SENSI XIT PRO</div>', unsafe_allow_html=True)
-st.markdown("<p style='text-align:center; color:#555; margin-top:-10px;'>V8.1 // PURPLE ENGINE // BY 3W MIGUEL</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align:center; color:#555; margin-top:-10px;'>V8.2 // PURPLE ENGINE // BY 3W MIGUEL</p>", unsafe_allow_html=True)
 
 # --- SELEÇÃO DE SISTEMA ---
 st.write("###")
@@ -105,34 +93,32 @@ with col_so2:
         st.session_state.plataforma = "iOS"
         st.rerun()
 
-# --- DEFININDO O EXEMPLO (DICA) DINÂMICO ---
-dica_modelo = "Ex: Redmi Note 11" if st.session_state.plataforma == "ANDROID" else "Ex: iPhone 13"
+# Dica dinâmica baseada na escolha
+dica = "Ex: Redmi Note 11" if st.session_state.plataforma == "ANDROID" else "Ex: iPhone 13"
 
 # --- INPUTS ---
 st.write("###")
-modelo = st.text_input("MODELO DO DISPOSITIVO", placeholder=dica_modelo)
+modelo = st.text_input("MODELO DO DISPOSITIVO", placeholder=dica)
 
 c_h1, c_h2 = st.columns(2)
 with c_h1: ram = st.selectbox("MEMÓRIA RAM", ["4 GB", "6 GB", "8 GB", "12 GB", "16 GB"])
 with c_h2: storage = st.text_input("ARMAZENAMENTO", placeholder="Ex: 128 GB")
 
 st.write("###")
-st.markdown("#### ⚡ OTIMIZAÇÃO ATIVA")
+st.markdown("#### ⚡ OTIMIZAÇÃO")
 st.checkbox("FPS UNLOCK (120+ FPS)", value=True)
 st.checkbox("AIMLOCK (MIRA GRUDANTE)")
-st.checkbox("TOUCH RESPONSE (RAPID FIRE)")
+st.checkbox("REGEDIT MOBILE V8")
 
 st.write("---")
 
 # ==============================================================================
-# 4. GERAÇÃO E RESULTADOS
+# 4. GERAÇÃO E RESULTADOS (SEM RAIOS)
 # ==============================================================================
 if st.button("🚀 GERAR CONFIGURAÇÃO MÍTICA", use_container_width=True, type="primary"):
     if not modelo:
-        st.error(f"Por favor, digite o modelo do seu {st.session_state.plataforma}!")
+        st.error(f"Digite o modelo do seu {st.session_state.plataforma}!")
     else:
-        # Animação de Raios
-        st.markdown('<div class="raios">⚡😈⚡</div>', unsafe_allow_html=True)
         with st.spinner("Injetando Scripts Pro..."):
             time.sleep(2)
         
@@ -141,7 +127,7 @@ if st.button("🚀 GERAR CONFIGURAÇÃO MÍTICA", use_container_width=True, type
         # Banner de Status
         st.markdown(f'''
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 1px solid #2a2f3f; padding-bottom: 10px;">
-                <span style="color:white; font-size:20px; font-weight:bold;">😈 {modelo.upper()}</span>
+                <span style="color:white; font-size:20px; font-weight:bold;">📱 {modelo.upper()}</span>
                 <span class="status-badge">XIT ATIVADO</span>
             </div>
         ''', unsafe_allow_html=True)
